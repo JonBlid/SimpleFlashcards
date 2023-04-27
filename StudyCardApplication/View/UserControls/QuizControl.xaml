@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="StudyCardApplication.View.UserControls.QuizControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="500"
+             Focusable="True"
+             FocusVisualStyle="{x:Null}">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="Return" Command="{Binding NextCardCommand}"/>
+    </UserControl.InputBindings>
+
+    <Grid Background="AliceBlue">
+        <DockPanel Margin="40 15 40 15" Background="White">
+            <TextBlock DockPanel.Dock="Top" Text="{Binding CurrentCardGroup.Name}" FontSize="25" HorizontalAlignment="Center" Margin="15"/>
+            <TextBlock DockPanel.Dock="Top" Text="{Binding SelectedCard.Question}" FontSize="17" HorizontalAlignment="Center"/>
+
+            <Button DockPanel.Dock="Bottom" Content="Back" Command="{Binding NavExitQuizCommand}" Width="45" Height="25" HorizontalAlignment="Left"/>
+            
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button DockPanel.Dock="Bottom" Command="{Binding CheckAnswerCommand}" CommandParameter="{Binding GivenAnswer}" Content="Submit" Width="100" Height="25" Margin="5 5 5 15"/>
+                <Button DockPanel.Dock="Bottom" Command="{Binding NextCardCommand}" Content="{Binding NextButtonText}" Width="100" Height="25" Margin="5 5 5 15"/>
+            </StackPanel>
+            <TextBox DockPanel.Dock="Bottom" Text="{Binding GivenAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding AnswerBoxVisibility}" MaxWidth="250" Margin="0 0 0 15">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding CheckAnswerCommand}" CommandParameter="{Binding GivenAnswer}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <TextBlock DockPanel.Dock="Bottom" Text="{Binding AnswerNotice}" FontSize="15" Foreground="{Binding AnswersColor}" HorizontalAlignment="Center" Height="20" MaxHeight="50" VerticalAlignment="Bottom" Margin="0 0 0 15"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

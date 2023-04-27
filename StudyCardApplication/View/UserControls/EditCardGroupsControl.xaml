@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="StudyCardApplication.View.UserControls.EditCardGroupsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700">
+
+    <Grid Background="White">
+        <DockPanel Background="AliceBlue">
+            <DockPanel DockPanel.Dock="Left">
+                <StackPanel DockPanel.Dock="Top" Width="150" Margin="15" Orientation="Vertical">
+                    <TextBlock Text="Deck Name"/>
+                    <TextBox Text="{Binding CurrentCardGroup.Name, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+                    <Button Content="New Card" Command="{Binding NewCardCommand}" Margin="10 10 10 0"/>
+                    <Button Content="Save Deck" Command="{Binding SaveCardGroupCommand}" CommandParameter="{Binding SelectedCard}" Margin="10 10 10 0"/>
+                    <Button Content="Back" Command="{Binding NavExitEditCommand}" Margin="10 10 10 10"/>
+                </StackPanel>
+            </DockPanel>
+            <ListView DockPanel.Dock="Left" Width="240" Margin="5" ItemsSource="{Binding Cards}" SelectedValue="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding Question}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel DockPanel.Dock="Left" Margin="10" Orientation="Vertical">
+                <TextBlock Text="Question"/>
+                <TextBox Text="{Binding SelectedCard.Question, Mode=TwoWay}"/>
+                <TextBlock Text="Answers"/>
+                <TextBox Text="{Binding SelectedCard.AcceptableAnswers, Mode=TwoWay}"/>
+                <TextBlock Text="For multiple answers, separate with commas ','" Foreground="Gray"/>
+                <Button Content="Delete Card" Command="{Binding DeleteCardCommand}" CommandParameter="{Binding SelectedCard}" Margin="10 10 10 0"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</UserControl>
